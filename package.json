@@ -1,0 +1,21 @@
+{
+  "name": "order_api",
+  "version": "1.0.0",
+  "description": "\"An API for user and order interaction.\"",
+  "main": "app.js",
+  "scripts": {
+    "dev": "npm start",
+    "start": "nodemon app.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talk2sohail/order_api.git"
+  },
+  "author": "Sohail",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/talk2sohail/order_api/issues"
+  },
+  "homepage": "https://github.com/talk2sohail/order_api#readme"
+}
