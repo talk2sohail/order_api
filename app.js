@@ -2,8 +2,7 @@ const app = require("express")();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const keys = require("./config/index");
-const User = require("./models/user");
-const Order = require("./models/order");
+const controller = require("./controller/auth");
 
 mongoose
   .connect(keys.mongoURI, {
@@ -17,46 +16,21 @@ mongoose
     console.log(err);
   });
 
-bodyParser.urlencoded({
-  extended: true
-});
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello Wolrd!</h1>");
+  res.send({
+    name: "Hello Geek!",
+    ref: "Order api"
+  });
 });
 
-// *** for testing purpose ***
-// User.create(
-//   {
-//     login: "user2",
-//     password: "1111"
-//   },
-//   (err, user) => {
-//     if (err) console.log(err);
-//     console.log(user);
-//   }
-// );
-
-// User.findOne({ login: "user1" }, (err, user) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     Order.create(
-//       {
-//         title: "Food packet",
-//         user_id: user._id
-//       },
-//       (err, order) => {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           console.log(order);
-//         }
-//       }
-//     );
-//   }
-// });
-
+app.post("/register", controller.registerUser);
+app.post("/login", controller.loginUser);
 app.listen(keys.PORT, () => {
   console.log("Server Connected...");
 });
