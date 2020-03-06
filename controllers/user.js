@@ -1,8 +1,6 @@
 module.exports = {
 	signUp: (req, res, next) => {
 		try {
-			// res.writeHead(200, { "Content-Type": "application/json" });
-			console.log(req.value.body);
 			res.json({
 				success: true,
 				messgae: "This is signUp route"
