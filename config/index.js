@@ -1,8 +1,14 @@
-const key = {
-	PORT: process.argv.PORT || 8080,
-	mongoURI: "mongodb://localhost/api2"
-};
-const development = {
+const path = require("path");
+
+const config = {
+	PORT: process.NODE_ENV || 8080,
+	MONGO_URI: "mongodb://localhost:27017/api2",
+	production: {
+		sitename: "API for order",
+		data: {
+			order: path.join(__dirname + "../data/order.json")
+		}
+	},
 	development: {
 		sitename: "API for order[development]",
 		data: {
@@ -10,17 +16,5 @@ const development = {
 		}
 	}
 };
-const production = {
-	production: {
-		sitename: "API for order",
-		data: {
-			order: path.join(__dirname + "../data/order.json")
-		}
-	}
-};
 
-module.exports = {
-	key,
-	development,
-	production
-};
+module.exports = config;

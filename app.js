@@ -1,36 +1,31 @@
 const app = require("express")();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const keys = require("./config/index");
-const controller = require("./controller/auth");
+const config = require("./config/index");
 
 mongoose
-  .connect(keys.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("MongoDB is connected..");
-  })
-  .catch(err => {
-    console.log(err);
-  });
+	.connect(config.MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	})
+	.then(() => {
+		console.log("MongoDB is connected..");
+	})
+	.catch((err) => {
+		console.log(err);
+	});
 
+//middleware
+app.use(bodyParser.json());
 app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
+	bodyParser.urlencoded({
+		extended: true
+	})
 );
 
-app.get("/", (req, res) => {
-  res.send({
-    name: "Hello Geek!",
-    ref: "Order api"
-  });
-});
+app.use("/users", require("./routes/user"));
 
-app.post("/register", controller.registerUser);
-app.post("/login", controller.loginUser);
-app.listen(keys.PORT, () => {
-  console.log("Server Connected...");
+//spin the server
+app.listen(config.PORT, () => {
+	console.log(`Server is Up and Running for ${config.development.sitename}`);
 });
