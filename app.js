@@ -1,6 +1,8 @@
 const app = require("express")();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieparser = require("cookie-parser");
+const morgan = require("morgan");
 const config = require("./config/index");
 
 mongoose
@@ -16,6 +18,8 @@ mongoose
 	});
 
 //middleware
+app.use(cookieparser());
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(
 	bodyParser.urlencoded({
@@ -23,7 +27,7 @@ app.use(
 	})
 );
 
-app.use("/users", require("./routes/user"));
+app.use("/", require("./routes/user"));
 
 //spin the server
 app.listen(config.PORT, () => {

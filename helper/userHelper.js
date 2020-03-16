@@ -4,19 +4,18 @@ module.exports = {
 		try {
 			return (req, res, next) => {
 				const result = Joi.validate(req.body, schema);
-				if (result.error) {
-					const name = result.error.name;
-					const errorMessage = result.error.details[0].message;
-					return res.status(400).json({
-						error: name,
-						message: errorMessage
-					});
-				}
-				if (!req.value) {
-					req.value = {};
-				}
-				req.value["body"] = req.body;
 
+				//this validate the error but user is created in the DB
+				if (result.error) {
+					req._error = req._error ? {} : null;
+					req._error = result.error;
+					// next(result.error);
+				} else {
+					if (!req.value) {
+						req.value = {};
+					}
+					req.value["body"] = req.body;
+				}
 				next();
 			};
 		} catch (err) {
@@ -27,9 +26,11 @@ module.exports = {
 	schemas: {
 		authSchema: Joi.object().keys({
 			email: Joi.string()
-				.email()
+				.email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
 				.required(),
-			password: Joi.string().required()
+			password: Joi.string()
+				.required()
+				.min(5)
 		})
 	}
 };

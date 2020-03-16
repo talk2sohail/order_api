@@ -8,5 +8,7 @@ router
 	.post(validateBody(schemas.authSchema), userController.signUp);
 router.route("/signIn").post(userController.signIn);
 router.route("/secret").get(userController.secret);
+router.route("/getcookie").get(userController.getcookie);
+router.route("/setcookie").post(userController.setcookie);
 
 module.exports = router;
