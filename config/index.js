@@ -1,7 +1,7 @@
 const path = require("path");
 
 const config = {
-	JWT_SECRET: "iamsohail",
+	JWT_SECRET: "",
 	PORT: process.env.NODE_ENV || 3000,
 	MONGO_URI: "mongodb://localhost:27017/api2",
 	production: {

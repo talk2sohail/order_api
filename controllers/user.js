@@ -15,8 +15,7 @@ signToken = (user) => {
 };
 module.exports = {
 	signUp: async (req, res, next) => {
-		// console.log(req.value.body);
-		// console.log(req._error);
+		//if user input is bad
 		if (req._error) {
 			const { name, details } = req._error;
 			return res.status(422).json({
