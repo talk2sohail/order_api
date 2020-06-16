@@ -49,9 +49,10 @@ module.exports = {
 	},
 	signIn: (req, res, next) => {
 		try {
+			console.log("You are signed in the console.");
 			res.json({
 				success: true,
-				messgae: "This is signIn route"
+				message: "You are logged in."
 			});
 		} catch (err) {
 			next(err);
@@ -59,10 +60,15 @@ module.exports = {
 	},
 	secret: (req, res, next) => {
 		try {
-			console.log("Cookies: ", req.cookies);
+			// console.log("Cookies: ", req.cookies);
+			// res.json({
+			// 	success: true,
+			// 	messgae: "You got the secret"
+			// });
+			console.log("I manged to get in here.");
 			res.json({
 				success: true,
-				messgae: "You got the secret"
+				messgae: "You did it bro."
 			});
 		} catch (err) {
 			next(err);
